@@ -97,9 +97,10 @@ def parse_cmdline(argv):
         argv = sys.argv[1:]
 
     # initialize the parser object:
-    parser = ArgumentParser(description="Reads in a two csv files (one name roster and one grade file) and "
-                                        "calculates the recommended grade based on standard deviation. Rows must have "
-                                        "the same number of values and columns must have the same number of values ")
+    parser = ArgumentParser(description="Reads in two required csv files (one name roster and one gradebook file) and "
+                                        "calculates the recommended letter grade based on standard deviation. Rows in "
+                                        "the gradebook must have the same number of values and the two files must have "
+                                        "the same number of columns.")
 
     parser.add_argument("-r", "--roster_csv_data_file", help="The location (directory and file name) of the csv file "
                                                              "with student names as strings",
