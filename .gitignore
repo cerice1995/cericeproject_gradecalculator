@@ -101,6 +101,9 @@ ENV/
 # mypy
 .mypy_cache/
 
+# IntelliJ files
+.idea/
+
 # output files not to be saved
 cericeproject_gradecalculator/ClassGradebook_letter.csv
 
