@@ -106,7 +106,7 @@ ENV/
 
 # output files not to be saved
 cericeproject_gradecalculator/ClassGradebook_letter.csv
-test/ClassGradebook_letter.csv
+tests/ClassGradebook_letter.csv
 
 
 out/
