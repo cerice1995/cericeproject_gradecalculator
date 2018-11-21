@@ -30,6 +30,7 @@ setup(
     entry_points={'console_scripts': ['data_proc = cericeproject_gradecalculator.data_proc:main',
                                       ],
                   },     package_dir={'cericeproject_gradecalculator': 'cericeproject_gradecalculator'},
+                install_requires=['numpy']
 
     test_suite='tests',
     # Additional entries you may want simply uncomment the lines you want and fill in the data
