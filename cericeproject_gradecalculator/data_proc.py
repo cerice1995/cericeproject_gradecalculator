@@ -38,10 +38,12 @@ def cal_grades(data_array):
 
     Parameters
     ----------
-    data_array : numpy array of student grades (one column per student)
+    data_array : numpy array of students' grades on all their assignment (one column per student)
 
     Returns
     -------
+    final_num_grade: a np array of students' weighted final grade
+
     final_lettter_grade : list of strings
         is a single row with a column for each student storing their letter grade as a string
 
@@ -59,9 +61,9 @@ def cal_grades(data_array):
 
     for x in range(0, num_students):
         # compute weighted score
-        quiz_avg = np.sum(data_array[:NUM_QUIZZES, x])
+        quiz_avg = np.sum(data_array[:NUM_QUIZZES, x]) / NUM_QUIZZES
         quiz_grade = quiz_avg * WEIGHT_QUIZZES
-        test_avg = np.sum(data_array[(num_assignments - NUM_TESTS - 1):, x])
+        test_avg = np.sum(data_array[(num_assignments - NUM_TESTS):, x]) / NUM_TESTS
         test_grade = test_avg * WEIGHT_TESTS
         tot_grade = quiz_grade + test_grade
 
@@ -83,7 +85,7 @@ def cal_grades(data_array):
         else:
             final_letter_grade.append("F")
 
-    return final_letter_grade
+    return final_num_grade, final_letter_grade
 
 
 def parse_cmdline(argv):
@@ -129,19 +131,18 @@ def main(argv=None):
     if ret != SUCCESS:
         return ret
 
-    final_grades = cal_grades(args.grades_csv_data)
+    final_grade_num, final_grades_letter = cal_grades(args.grades_csv_data)
 
     # get the name of the input file without the directory it is in, if one was specified
     base_out_fname = os.path.basename(args.grade_csv_data_file)
     # get the first part of the file name (omit extension) and add the suffix
-    base_out_fname = os.path.splitext(base_out_fname)[0] + '_letter'
-    # add suffix and extension
-    out_fname = base_out_fname + '.csv'
-    # make array to save roster with letter grades
+    out_fname = os.path.splitext(base_out_fname)[0] + '_letter' + '.csv'
+    # open file to write to
     sys.stdout = open(out_fname, "w+")
+    # print student name from roster and their letter grade to the output file, each student on separate line
     num_students = len(args.roster_csv_data)
     for x in range(0, num_students):
-        print("{}: {}".format(args.roster_csv_data[x], final_grades[x]))
+        print("{}: {} = {}".format(args.roster_csv_data[x], round(final_grade_num[0,x], 1), final_grades_letter[x]))
 
     sys.stdout = sys.__stdout__
     print("Wrote file: {}".format(out_fname))
