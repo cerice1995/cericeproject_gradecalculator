@@ -19,7 +19,7 @@ setup(
     license='MIT',
 
     # Which Python importable modules should be included when your package is installed
-    packages=['cericeproject_gradecalculator'],
+    packages=['cericeproject_gradecalculator', "tests"],
 
     # Optional include package data to ship with your package
     # Comment out this line to prevent the files from being packaged with your software
@@ -32,7 +32,6 @@ setup(
                   },     package_dir={'cericeproject_gradecalculator': 'cericeproject_gradecalculator'},
                 install_requires=['numpy']
 
-    test_suite='tests',
     # Additional entries you may want simply uncomment the lines you want and fill in the data
     # author_email='me@place.org',      # Author email
     # url='http://www.my_package.com',  # Website
