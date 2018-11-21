@@ -97,9 +97,9 @@ def parse_cmdline(argv):
         argv = sys.argv[1:]
 
     # initialize the parser object:
-    parser = ArgumentParser(description="Reads in a two csv files (one name roster and one and grade file) and "
-                                        "calculates the recommended grade based on standard deviation. Rows must of the"
-                                        "same number of values and columns must have the same number of values ")
+    parser = ArgumentParser(description="Reads in a two csv files (one name roster and one grade file) and "
+                                        "calculates the recommended grade based on standard deviation. Rows must have "
+                                        "the same number of values and columns must have the same number of values ")
 
     parser.add_argument("-r", "--roster_csv_data_file", help="The location (directory and file name) of the csv file "
                                                              "with student names as strings",
@@ -138,13 +138,13 @@ def main(argv=None):
     # get the first part of the file name (omit extension) and add the suffix
     out_fname = os.path.splitext(base_out_fname)[0] + '_letter' + '.csv'
     # open file to write to
-    sys.stdout = open(out_fname, "w+")
+    file = open(out_fname,"w")
     # print student name from roster and their letter grade to the output file, each student on separate line
     num_students = len(args.roster_csv_data)
     for x in range(0, num_students):
-        print("{}: {} = {}".format(args.roster_csv_data[x], round(final_grade_num[0,x], 1), final_grades_letter[x]))
+        file.write("{}: {} = {}\n".format(args.roster_csv_data[x], round(final_grade_num[0,x], 1), final_grades_letter[x]))
+    file.close()
 
-    sys.stdout = sys.__stdout__
     print("Wrote file: {}".format(out_fname))
 
     return SUCCESS
