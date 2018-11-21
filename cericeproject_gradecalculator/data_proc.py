@@ -14,7 +14,6 @@ from argparse import ArgumentParser
 import numpy as np
 import os
 
-
 SUCCESS = 0
 INVALID_DATA = 1
 IO_Error = 2
@@ -62,7 +61,7 @@ def cal_grades(data_array):
         # compute weighted score
         quiz_avg = np.sum(data_array[:NUM_QUIZZES, x])
         quiz_grade = quiz_avg * WEIGHT_QUIZZES
-        test_avg = np.sum(data_array[(num_assignments - NUM_TESTS - 1):,x])
+        test_avg = np.sum(data_array[(num_assignments - NUM_TESTS - 1):, x])
         test_grade = test_avg * WEIGHT_TESTS
         tot_grade = quiz_grade + test_grade
 
@@ -75,17 +74,16 @@ def cal_grades(data_array):
 
     # assign letter grades based on stand deviation
     for x in range(0, num_students):
-        if final_num_grade[0, x] > (mean+dev):
+        if final_num_grade[0, x] > (mean + dev):
             final_letter_grade.append("A")
         elif final_num_grade[0, x] > mean:
             final_letter_grade.append("B")
-        elif final_num_grade[0, x] > (mean-dev):
+        elif final_num_grade[0, x] > (mean - dev):
             final_letter_grade.append("C")
         else:
             final_letter_grade.append("F")
 
     return final_letter_grade
-
 
 
 def parse_cmdline(argv):
@@ -102,18 +100,18 @@ def parse_cmdline(argv):
                                         "same number of values and columns must have the same number of values ")
 
     parser.add_argument("-r", "--roster_csv_data_file", help="The location (directory and file name) of the csv file "
-                                                              "with student names as strings",
+                                                             "with student names as strings",
                         default=DEFAULT_STUDENTS_FILE_NAME)
 
     parser.add_argument("-g", "--grade_csv_data_file", help="The location (directory and file name) of the csv file "
-                                                              "with student grades as integers",
+                                                            "with student grades as integers",
                         default=DEFAULT_GRADES_FILE_NAME)
 
     args = None
     try:
         args = parser.parse_args(argv)
-        args.roster_csv_data = np.loadtxt(fname=args.roster_csv_data_file, dtype = np.str, delimiter=',')
-        args.grades_csv_data = np.loadtxt(fname=args.grade_csv_data_file, dtype = np.float, delimiter=',')
+        args.roster_csv_data = np.loadtxt(fname=args.roster_csv_data_file, dtype=np.str, delimiter=',')
+        args.grades_csv_data = np.loadtxt(fname=args.grade_csv_data_file, dtype=np.float, delimiter=',')
     except IOError as e:
         warning("Problems reading file:", e)
         parser.print_help()
