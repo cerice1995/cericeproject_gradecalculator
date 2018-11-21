@@ -138,11 +138,12 @@ def main(argv=None):
     # get the first part of the file name (omit extension) and add the suffix
     out_fname = os.path.splitext(base_out_fname)[0] + '_letter' + '.csv'
     # open file to write to
-    file = open(out_fname,"w")
+    file = open(out_fname, "w")
     # print student name from roster and their letter grade to the output file, each student on separate line
     num_students = len(args.roster_csv_data)
     for x in range(0, num_students):
-        file.write("{}: {} = {}\n".format(args.roster_csv_data[x], round(final_grade_num[0,x], 1), final_grades_letter[x]))
+        file.write("{}: {} = {}\n".format(args.roster_csv_data[x], round(final_grade_num[0, x], 1),
+                                          final_grades_letter[x]))
     file.close()
 
     print("Wrote file: {}".format(out_fname))
