@@ -100,3 +100,9 @@ ENV/
 
 # mypy
 .mypy_cache/
+
+# output files not to be saved
+cericeproject_gradecalculator/ClassGradebook_letter.csv
+
+
+out/
